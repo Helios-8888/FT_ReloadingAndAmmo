@@ -3,6 +3,7 @@
 
 #include "TargetPanel.h"
 #include "Components/StaticMeshComponent.h" 
+#include "Math/UnrealMathUtility.h"  
 
 // Sets default values
 ATargetPanel::ATargetPanel()
@@ -22,6 +23,18 @@ void ATargetPanel::BeginPlay()
 {
 	Super::BeginPlay();
 	bIsHit = false;
+	// add a random direction for the target to move in if bIsMoving is true
+	if (bIsMoving)
+	{		
+		if (FMath::RandRange(0, 2) == 0)
+		{
+			MoveDirection = 1;
+		}
+		else
+		{
+			MoveDirection = -1;
+		}
+	}
 }
 
 // Called every frame
