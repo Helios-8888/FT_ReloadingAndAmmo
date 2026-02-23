@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+#include "Materials/Material.h"
 #include "AmmoType.generated.h"
+
 
 /**
  * 
@@ -23,5 +25,8 @@ class FT_RELOADINGANDAMMO_API UAmmoType : public UPrimaryDataAsset
 
         UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
         int Damage;
+
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
+        UMaterial* AmmoMat;
 
 };

@@ -30,6 +30,8 @@ AFT_ReloadingAndAmmoProjectile::AFT_ReloadingAndAmmoProjectile()
 
 	// Die after 3 seconds by default
 	InitialLifeSpan = 3.0f;
+
+	//Set Material to Material from the ammo type
 }
 
 void AFT_ReloadingAndAmmoProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -50,4 +52,8 @@ void AFT_ReloadingAndAmmoProjectile::OnHit(UPrimitiveComponent* HitComp, AActor*
 			Destroy();
 		}
 	}
+}
+
+void AFT_ReloadingAndAmmoProjectile::SetMat(UMaterial* material) {
+	CollisionComp->SetMaterial(0, material);
 }

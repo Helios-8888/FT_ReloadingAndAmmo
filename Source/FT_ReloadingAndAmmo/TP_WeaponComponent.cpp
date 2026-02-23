@@ -11,6 +11,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "Animation/AnimInstance.h"
 #include "Engine/LocalPlayer.h"
+#include "Materials/Material.h" //Might be uneccesary. I'll check
 #include "Engine/World.h"
 
 // Sets default values for this component's properties
@@ -58,6 +59,10 @@ void UTP_WeaponComponent::Fire()
 			if (Projectile && AmmoType)
 			{
 				Projectile->Damage = AmmoType->Damage;
+				// add proj material
+				Projectile->SetMat(AmmoType->AmmoMat);
+
+				//Refill from reserve ammo
 			}
 		}
 	}
@@ -144,4 +149,6 @@ void UTP_WeaponComponent::SetNewAmmoType(UAmmoType* NewAmmoType)
 {
 	AmmoType = NewAmmoType;
 	AmmoInClip = AmmoType->AmmoCount;
+	UE_LOG(LogTemp, Warning, TEXT("Set Ammo To %s"), *NewAmmoType->AmmoName);
+
 }
