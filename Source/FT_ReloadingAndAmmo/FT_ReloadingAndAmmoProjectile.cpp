@@ -12,7 +12,6 @@ AFT_ReloadingAndAmmoProjectile::AFT_ReloadingAndAmmoProjectile()
 	CollisionComp->InitSphereRadius(5.0f);
 	CollisionComp->BodyInstance.SetCollisionProfileName("Projectile");
 	CollisionComp->OnComponentHit.AddDynamic(this, &AFT_ReloadingAndAmmoProjectile::OnHit);		// set up a notification for when this component hits something blocking
-
 	// Players can't walk on it
 	CollisionComp->SetWalkableSlopeOverride(FWalkableSlopeOverride(WalkableSlope_Unwalkable, 0.f));
 	CollisionComp->CanCharacterStepUpOn = ECB_No;
@@ -32,6 +31,7 @@ AFT_ReloadingAndAmmoProjectile::AFT_ReloadingAndAmmoProjectile()
 	InitialLifeSpan = 3.0f;
 
 	//Set Material to Material from the ammo type
+	Mesh = AActor::GetComponentByClass<UStaticMeshComponent>();
 }
 
 void AFT_ReloadingAndAmmoProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -55,5 +55,7 @@ void AFT_ReloadingAndAmmoProjectile::OnHit(UPrimitiveComponent* HitComp, AActor*
 }
 
 void AFT_ReloadingAndAmmoProjectile::SetMat(UMaterial* material) {
-	CollisionComp->SetMaterial(0, material);
+	if (Mesh) {
+		Mesh->SetMaterial(0, material);
+	}
 }
